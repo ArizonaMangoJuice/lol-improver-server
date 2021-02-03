@@ -34,10 +34,11 @@ router.post('/', (req, res, next) => {
             return User.create(newUser); // returns user with hashed pass
         })
         .then(result => {
-            const userChamps = addUserId(result.id); //creates default champs with added userId
+            console.log('this is the user', result);
+            // const userChamps = addUserId(result.id); //creates default champs with added userId
 
-            Champ.insertMany(userChamps) //inserts userchamps to db
-                .catch(err => console.log(err)); 
+            // Champ.insertMany(userChamps) //inserts userchamps to db
+                // .catch(err => console.log(err)); 
 
             res.status(201)
                 .location(`${req.originalUrl}/${result.id}`)
