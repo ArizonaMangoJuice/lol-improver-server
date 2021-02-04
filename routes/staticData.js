@@ -3,7 +3,7 @@ const router = express.Router();
 const rp = require('request-promise');
 const StaticChamp = require('../models/staticChampionIdName');
 const summonerSpellSchema = require('../models/summonerSpells');
-const Items = require('../models/items');
+// const Items = require('../models/items');
 
 router.get('/:champId', (req, res) => {
     let {champId} = req.params;
