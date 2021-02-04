@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const championSchema = new mongoose.Schema({
     version: {type: String, require: true},
-    // id: {type: String, required:true},
+    id: {type: String, required:true},
     key: {type: String, required:true},
     name: {type: String, required:true},
     title: {type: String, required:true},
