@@ -1,3 +1,9 @@
+## THIS IS STILL UNDER DEVELOPMENT
+Currently removing and replacing endpoints because riot updated there api. Will have more features when complete. Will be updating with rounds.
+
+# Round 1 
+Currently fixing the api endpoints and will add testing to the endpoints.
+
 ## LoL-Improver
 Lol-improver let's you take notes of champs you play and look up player latest match history.
 https://github.com/ArizonaMangoJuice/lol-improver-server
@@ -26,11 +32,11 @@ Standard/Thinkful-style
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
  
-## Screenshots
+<!-- ## Screenshots
 ### Mobile Login
-![alt text](https://gdurl.com/duFx3)
+![alt text](https://gdurl.com/duFx3) -->
 
-### Mobile Sign Up
+<!-- ### Mobile Sign Up
 
 ![alt text](https://gdurl.com/mQI8)
 
@@ -46,7 +52,7 @@ Standard/Thinkful-style
 ![alt text](https://gdurl.com/iWp7)
 
 ### Desktop Dashboard
-![alt text](https://gdurl.com/vp-T)
+![alt text](https://gdurl.com/vp-T) -->
 
 ## API Documentation
 - https://lol-improver-ci.herokuapp.com/api/static/:champId
