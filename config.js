@@ -1,5 +1,5 @@
-const path = require('path')
-require('dotenv')
+// const path = require('path')
+require('dotenv').config()
 'use strict';
 
 module.exports = {
