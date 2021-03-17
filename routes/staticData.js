@@ -5,6 +5,10 @@ const StaticChamp = require('../models/staticChampionIdName');
 const summonerSpellSchema = require('../models/summonerSpells');
 // const Items = require('../models/items');
 
+router.get('/test', (req,res) => {
+    res.json({"hello": "SUCCESS"});
+})
+
 router.get('/:champId', (req, res) => {
     let {champId} = req.params;
     
