@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
+console.log('THIS IS THE PORT', PORT);
 const { dbConnect } = require('./db-mongoose');
 // const {dbConnect} = require('./db-knex');
 const localStrategy = require('./passport/local');
