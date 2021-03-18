@@ -9,6 +9,7 @@ const localStrategy = new LocalStrategy((username, password, done) => {
     User.findOne({ username })
       .then(results => {
         user = results;
+
         if (!user) {
           return Promise.reject({
             reason: 'LoginError',
@@ -26,6 +27,10 @@ const localStrategy = new LocalStrategy((username, password, done) => {
             location: 'password'
           });
         }
+        
+
+        // console.log('this is the user inside the local login in passport', user)
+       
         return done(null, user);
       })
       .catch(err => {
