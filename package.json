@@ -9,7 +9,7 @@
     "mocha-exit0": "mocha --exit --file test/setup.test.js '!(node_modules)/**/*test.js' || true",
     "test": "npm run mocha-exit0 --timeout 6000",
     "cover": "nodemon --exec nyc --reporter=lcov --reporter=text-summary npm run mocha-exit0",
-    "heroku": "node index.js",
+    "heroku": "nodemon index.js",
     "travis": "npm run mocha"
   },
   "author": "Joe Turner <jturner@thinkful.com>",
