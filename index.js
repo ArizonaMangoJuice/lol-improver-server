@@ -18,6 +18,7 @@ const userRoute = require('./routes/user');
 const authRoute = require('./routes/auth');
 const playerRoute = require('./routes/player');
 const staticRoute = require('./routes/staticData');
+const notesRoute = require('./routes/notes');
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -41,6 +42,8 @@ app.use('/api/champions', championsRoute);
 app.use('/api/users', userRoute);
 
 app.use('/api', authRoute);
+
+app.use('/api/notes', notesRoute);
 
 app.use('/api/players', playerRoute);
 

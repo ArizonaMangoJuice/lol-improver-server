@@ -12,11 +12,14 @@ const localAuth = passport.authenticate('local', { session: false, failWithError
 
 function createAuthToken(user) {
     return jwt.sign(
-        { 
-            username: user.username,
-            _id: user._id,
-            gameName: user.gameName,
-         },
+        {
+            user: {
+                username: user.username,
+                _id: user._id,
+                gameName: user.gameName,
+            }
+        },
+        // { user },
         JWT_SECRET,
         {
             subject: user.username,
