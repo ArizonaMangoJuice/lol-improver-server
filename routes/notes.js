@@ -45,4 +45,17 @@ router.post('/', (req, res) => {
     // });
 });
 
+router.put('/', (req, res) => {
+    // const userId = req.user._id;
+    const body = req.body;
+    // console.log('this is the body', body)
+    Note
+        .findByIdAndUpdate(req.body._id, req.body, { new: true })
+        .then(response => {
+            console.log('this is the response', response);
+            res.json(response);
+        })
+        .catch(error => next(error));
+});
+
 module.exports = router;
