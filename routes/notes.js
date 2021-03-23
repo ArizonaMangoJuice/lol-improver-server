@@ -58,4 +58,16 @@ router.put('/', (req, res) => {
         .catch(error => next(error));
 });
 
+router.delete('/', (req, res) => {
+    const id = req.body.id;
+
+    Note
+        .deleteOne({_id: id})
+        .then(response => {
+            console.log(response);
+            res.json({"deleted": "true"});
+        })
+        .catch(error => next(error))
+});
+
 module.exports = router;
