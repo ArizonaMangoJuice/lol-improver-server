@@ -3,17 +3,17 @@ const express = require('express');
 const router = express.Router();
 const Player = require('../models/playerSchema');
 const MatchList = require('../models/matchList');
-const { getPlayerInfo, getMatchDetails, getMatchInfo, getSummonerByName } = require('../helpers/getLolInfo');
+const { getPlayerInfo, getMatchDetails, getMatchInfo, getSummonerByName, getMatchesList } = require('../helpers/getLolInfo');
 const { convertToDbObj } = require('../helpers/conversion');
 
 router.get('/:summonerName', async (req, res, next) => {
     const userName = req.params.summonerName;
-    let user = await Player.find({queryName: decodeURI(userName).toLowerCase()});
+    let user = await Player.find({ queryName: decodeURI(userName).toLowerCase() });
 
-    if(user.length < 1) {
+    if (user.length < 1) {
         console.log('running because it can\'t find the user')
         const summoner = await getSummonerByName(userName);
-        user = await Player.create({queryName: summoner.name.toLowerCase(),...summoner});
+        user = await Player.create({ queryName: summoner.name.toLowerCase(), ...summoner });
     }
 
     res.json(user[0]);
@@ -24,7 +24,32 @@ router.get('/', async (req, res, next) => {
     res.json(summoners);
 });
 
-router.get('/matches/')
+router.get('/matches/:accountId', async (req, res, next) => {
+    const accountId = 'CInoTj1bHo4Q_UJ_KH-F6GsFij4ILcU8NcKc7lERfxXNjg';
+    let possibleId = [
+        { playerOne: accountId }, { playerTwo: accountId }, { playerThree: accountId },
+        { playerFour: accountId }, { playerFive: accountId }, { playerSix: accountId },
+        { playerSeven: accountId }, { playerEight: accountId }, { playerNine: accountId },
+        { playerTen: accountId }];
+
+    let userMatches = await MatchList.find().or(possibleId);
+
+    if (userMatches.length < 1) {
+        console.log('couldnt find any so going to add them');
+        const firstGrabMatches = await getMatchesList(accountId);
+        const matches = firstGrabMatches.matches;
+
+        let accountIdMatches = matches.map(match => ({ playerOne: accountId, ...match }));
+
+        const userCreatedMatches = await MatchList.create(accountIdMatches);
+
+        res.json(userCreatedMatches);
+        // console.log(matches)
+    }
+
+    console.log('found the matches');
+    res.json(userMatches);
+});
 
 router.get('/:name/dsa', (req, res, next) => {
     let { name } = req.params;

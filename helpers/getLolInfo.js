@@ -15,7 +15,7 @@ async function getSummonerByName(name) {
 }
 
 async function getMatchesList(accountId) {
-    const string = `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=3&api_key=${API_KEY}`;
+    const string = `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=5&api_key=${API_KEY}`;
 
     try {
         const response = await rp(string);
@@ -62,5 +62,6 @@ module.exports = {
     getPlayerInfo,
     getMatchDetails,
     getMatchInfo,
-    getSummonerByName
+    getSummonerByName,
+    getMatchesList
 };
