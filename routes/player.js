@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/matches/:accountId', async (req, res, next) => {
-    const accountId = 'CInoTj1bHo4Q_UJ_KH-F6GsFij4ILcU8NcKc7lERfxXNjg';
+    const accountId = req.params.accountId;
     let possibleId = [
         { playerOne: accountId }, { playerTwo: accountId }, { playerThree: accountId },
         { playerFour: accountId }, { playerFive: accountId }, { playerSix: accountId },
@@ -35,7 +35,6 @@ router.get('/matches/:accountId', async (req, res, next) => {
     let userMatches = await MatchList.find().or(possibleId);
 
     if (userMatches.length < 1) {
-        console.log('couldnt find any so going to add them');
         const firstGrabMatches = await getMatchesList(accountId);
         const matches = firstGrabMatches.matches;
 
@@ -44,7 +43,6 @@ router.get('/matches/:accountId', async (req, res, next) => {
         const userCreatedMatches = await MatchList.create(accountIdMatches);
 
         res.json(userCreatedMatches);
-        // console.log(matches)
     }
 
     console.log('found the matches');
