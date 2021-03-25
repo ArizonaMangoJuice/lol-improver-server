@@ -10,13 +10,13 @@ const PlayerSchema = new mongoose.Schema({
     revisionDate: {type: String, required: true},
     summonerLevel: {type: String, required: true},
     queryName: {type: String, required: true},
-    summonerId: {type: String, required: true}
+    puuid: {type: String, required: true}
 });
 
 PlayerSchema.set('toObject', {
     transform: function(doc, ret){
-        ret.id = ret._id;
-        delete ret._id;
+        // ret.id = ret._id;
+        // delete ret._id;
         delete ret.__v;
     }
 });
