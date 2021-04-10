@@ -26,6 +26,18 @@ async function getMatchesList(accountId) {
     }
 }
 
+async function getMatchById(matchId) {
+    const string = `https://na1.api.riotgames.com/lol/match/v4/matches/${matchId}?api_key=${API_KEY}`;
+
+    try {
+        const response = await rp(string);
+        const jsonResponse = await JSON.parse(response);
+        return jsonResponse;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 //gets the player accountInfo
 function getPlayerInfo(name) {
     const string = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${API_KEY}`;
@@ -36,6 +48,7 @@ function getPlayerInfo(name) {
         })
         .catch(err => console.log(err))
 }
+
 //gets the matchlist testing2
 function getMatchInfo(accountId) {
     const string = `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=3&api_key=${API_KEY}`;
@@ -61,6 +74,7 @@ function getMatchDetails(array) {
 module.exports = {
     getPlayerInfo,
     getMatchDetails,
+    getMatchById,
     getMatchInfo,
     getSummonerByName,
     getMatchesList

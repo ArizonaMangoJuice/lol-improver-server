@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Player = require('../models/playerSchema');
 const MatchList = require('../models/matchList');
-const { getPlayerInfo, getMatchDetails, getMatchInfo, getSummonerByName, getMatchesList } = require('../helpers/getLolInfo');
+const { getPlayerInfo, getMatchDetails, getMatchInfo, getSummonerByName, getMatchesList, getMatchById } = require('../helpers/getLolInfo');
 const { convertToDbObj } = require('../helpers/conversion');
 
 router.get('/:summonerName', async (req, res, next) => {
@@ -47,6 +47,15 @@ router.get('/matches/:accountId', async (req, res, next) => {
 
     console.log('found the matches');
     res.json(userMatches);
+});
+
+router.get('/match/:matchId', async (req, res, next) => {
+    // needs to save the match for future grabs, but for now its good. 
+    const matchId = req.params.matchId;
+
+    const match = await getMatchById(matchId);
+
+    res.json(match);
 });
 
 router.get('/:name/dsa', (req, res, next) => {
