@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const rp = require('request-promise');
-const StaticChamp = require('../models/staticChampionIdName');
+// const StaticChamp = require('../models/staticChampionIdName');
+const Champions = require('../models/champions');
 const summonerSpellSchema = require('../models/summonerSpells');
 const { getStaticData } = require('../utils/getStaticData');
 // const Items = require('../models/items');
 
 // this will be used when there are updates
+// this endpoint needs to be protected
 router.get('/newChamps', async (req, res) => {
     let test = await getStaticData();
     res.json(test);
@@ -15,7 +17,7 @@ router.get('/newChamps', async (req, res) => {
 router.get('/:champId', (req, res) => {
     let { champId } = req.params;
 
-    StaticChamp.find({ champId: champId.toString() })
+    Champions.find({ key: champId.toString() })
         .then(result => {
             // console.log(result);
             res.json(result);
