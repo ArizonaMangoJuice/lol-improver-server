@@ -14,9 +14,11 @@ router.get('/:summonerName', async (req, res, next) => {
         console.log('running because it can\'t find the user')
         const summoner = await getSummonerByName(userName);
         user = await Player.create({ queryName: summoner.name.toLowerCase(), ...summoner });
+        
+        res.json(user)
     }
 
-    res.json(user[0]);
+    if(user.length >= 1) res.json(user);
 });
 
 router.get('/', async (req, res, next) => {
