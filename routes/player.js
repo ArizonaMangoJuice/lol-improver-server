@@ -7,18 +7,18 @@ const { getPlayerInfo, getMatchDetails, getMatchInfo, getSummonerByName, getMatc
 const { convertToDbObj } = require('../helpers/conversion');
 
 router.get('/:summonerName', async (req, res, next) => {
-    const userName = req.params.summonerName;
+    const userName = req.params.summonerName.replace(/\s+/g, '');
+    console.log('summonerName', userName)
     let user = await Player.find({ queryName: decodeURI(userName).toLowerCase() });
 
     if (user.length < 1) {
-        console.log('running because it can\'t find the user')
         const summoner = await getSummonerByName(userName);
-        user = await Player.create({ queryName: summoner.name.toLowerCase(), ...summoner });
-        
-        res.json(user)
+        if (summoner && summoner.status && summoner.status.status_code === 404) return next({ ...summoner.status, status: summoner.status.status_code });
+        user = await Player.create({ queryName: summoner.name.replace(/\s+/g, '').toLowerCase(), ...summoner });
+        res.json(user[0])
     }
 
-    if(user.length >= 1) res.json(user);
+    if (user.length >= 1) res.json(user[0]);
 });
 
 router.get('/', async (req, res, next) => {
@@ -37,7 +37,9 @@ router.get('/matches/:accountId', async (req, res, next) => {
     let userMatches = await MatchList.find().or(possibleId);
 
     if (userMatches.length < 1) {
+        console.log('this is the account id', accountId);
         const firstGrabMatches = await getMatchesList(accountId);
+        console.log('this is the matches', firstGrabMatches)
         const matches = firstGrabMatches.matches;
 
         let accountIdMatches = matches.map(match => ({ playerOne: accountId, ...match }));

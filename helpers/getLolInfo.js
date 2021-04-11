@@ -10,7 +10,7 @@ async function getSummonerByName(name) {
         const jsonResponse = await JSON.parse(response);
         return jsonResponse;
     } catch (error) {
-        return error.message;
+        return JSON.parse(error.error)
     }
 }
 
