@@ -8,16 +8,18 @@ const { convertToDbObj } = require('../helpers/conversion');
 
 router.get('/:summonerName', async (req, res, next) => {
     const userName = req.params.summonerName.replace(/\s+/g, '');
-    console.log('summonerName', userName)
     let user = await Player.find({ queryName: decodeURI(userName).toLowerCase() });
-
+    
     if (user.length < 1) {
         const summoner = await getSummonerByName(userName);
         if (summoner && summoner.status && summoner.status.status_code === 404) return next({ ...summoner.status, status: summoner.status.status_code });
         user = await Player.create({ queryName: summoner.name.replace(/\s+/g, '').toLowerCase(), ...summoner });
-        res.json(user[0])
+        delete user.__v;
+        res.json(user);
     }
 
+    delete user.__v;
+    // console.log('SENDING THIS BACK TO THE CLIENT',  user)
     if (user.length >= 1) res.json(user[0]);
 });
 
