@@ -5,6 +5,8 @@ const rp = require('request-promise');
 const Champions = require('../models/champions');
 const summonerSpellSchema = require('../models/summonerSpells');
 const { getStaticData } = require('../utils/getStaticData');
+const { getSummonerSpells } = require('../utils/getSummonerSpells');
+const SummonerSpells = require('../models/summonerSpells');
 // const Items = require('../models/items');
 
 // this will be used when there are updates
@@ -12,7 +14,20 @@ const { getStaticData } = require('../utils/getStaticData');
 router.get('/newChamps', async (req, res) => {
     let test = await getStaticData();
     res.json(test);
-})
+});
+
+router.get('/newSummonerSpells', async (req, res) => {
+    let summonerSpells = await getSummonerSpells();
+    res.json(summonerSpells);
+});
+
+router.get('/summonerSpell/:key', (req, res, next) => {
+    let {key} = req.params;
+    SummonerSpells
+        .find({key: key.toString()})
+        .then(response => res.json(response))
+        .catch(err => next(err))
+});
 
 router.get('/:champId', (req, res) => {
     let { champId } = req.params;
